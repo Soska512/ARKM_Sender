@@ -40,12 +40,23 @@ def transfer(account):
     return swap_txn_hash
 
 
+with open('keys.txt', 'r') as keys_file:
+    accounts = [Account.from_key(line.replace("\n", "")) for line in keys_file.readlines()]
+
 
 def main():
-    with open('keys.txt', 'r') as keys_file:
-        accounts = [Account.from_key(line.replace("\n", "")) for line in keys_file.readlines()]
     for account in accounts:
         txn = transfer(account)
         print(f'Hash: https://etherscan.io/tx/{txn.hex()}')
+
+
+while True:
+    if get_arkm_balance(accounts[0].address) > 0:
+        break
+    else:
+        print("Balance: 0 $ARKM")
+        continue
+
+
 
 main()

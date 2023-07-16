@@ -1,5 +1,4 @@
 import asyncio
-import time
 from web3 import Web3, Account
 from web3.auto import w3
 import json
@@ -60,6 +59,12 @@ async def main(accounts_):
     for result in results:
         print(f'Hash: https://etherscan.io/tx/{result.hex()}')
 
+while True:
+    if get_arkm_balance(accounts[0].address) > 0:
+        break
+    else:
+        print("Balance: 0 $ARKM")
+        continue
 
 
 asyncio.run(main(accounts))
